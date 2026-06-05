@@ -67,7 +67,7 @@ function App() {
         {juego_activo && (
           <div className="contenedor_juego_empezado">
             <p className="texto_juego">
-              Pulsa lo más rapido que puedas , + 1 seg por pulsación
+              Pulsa lo más rapido que puedas
             </p>
 
             <h3 className="texto_contador">Tiempo: {tiempo_restante} </h3>
