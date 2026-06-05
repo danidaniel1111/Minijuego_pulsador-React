@@ -1,18 +1,35 @@
-# React + Vite
+# 🕹️ El Gimnasio de Reflejos (Crono-Entrenamiento Arcade)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web interactiva desarrollada en React enfocada en el entrenamiento mental y de reflejos mediante mecánicas de tiempo reactivo.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Demostración Técnica y Buenas Prácticas
 
-## React Compiler
+* **Evasión de Fugas de Memoria (Memory Leaks):** Implementación de una función de limpieza de manual (*Cleanup Function*) mediante `return () => clearInterval(contador)` dentro del hook de sincronización. Esto garantiza que al desmontar el componente, pausar la partida o disparar el Game Over, el navegador destruya por completo los hilos de ejecución secundarios, consumiendo cero recursos de CPU de fondo.
+* **Rotura de Dependencias Circulares (`prev`):** Uso estricto del patrón funcional callback `setTiempo((prev) => prev - 1)` dentro del bucle del reloj. Esto permite al estado leer el presente de la aplicación de forma aislada, evitando la necesidad de incluir la variable en el array de dependencias del `useEffect` y previniendo bucles infinitos de re-renderizado masivo.
+* **Separación de Responsabilidades por Efectos:** Estructuración de la arquitectura en dos bloques de efectos independientes y aislados:
+  * **Efecto 1:** Sincroniza en exclusiva el encendido y apagado del intervalo asíncrono monitorizando `[juego_activo]`.
+  * **Efecto 2:** Actúa como vigilante de consecuencia escuchando únicamente a `[tiempo_restante]` para forzar la detención automatizada en el segundo cero.
+* **Maquetación Modular & Adaptativa:** Modularización limpia de la botonera reactiva en un componente hijo (`BotonJuegoPulsar`) comunicado mediante callbacks. Interfaz visual responsive estilizada en CSS puro con estética Arcade Retro/Cyberpunk utilizando halos de neón dinámicos y Flexbox geométrico.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## 🛠️ Tecnologías Utilizadas
 
-## Expanding the ESLint configuration
+* **React (v18+)** & Vite como entorno de compilación ágil.
+* **JavaScript Asíncrono:** Uso avanzado de `setInterval`, `clearInterval` y funciones de actualización de estado síncronas.
+* **CSS3 Avanzado:** Diseño Mobile-First, Flexbox adaptativo, filtros de brillo con `text-shadow` / `box-shadow` e inyección de tipografías monoespaciadas.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📋 Estructura de Control de Estados
+
+El núcleo lógico de la partida se sostiene sobre tres almacenes primitivos sincronizados en cascada:
+
+```javascript
+const [puntuacion, setPuntos] = useState(0);      // Contador de impactos exitosos
+const [tiempo_restante, setTiempo] = useState(10); // Cronómetro regresivo síncrono
+const [juego_activo, setActivo] = useState(false);  // Flag interruptor del temporizador
+```
+
