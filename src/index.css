@@ -1,0 +1,209 @@
+:root {
+  --bg-neon: #0a0b10;
+  --bg-panel: #121420;
+  --borde-neon: #ff0055;
+  --borde-cyan: #00f0ff;
+  --texto-glow: #ffffff;
+  --texto-apagado: #636881;
+  --color-score: #00ff66;
+}
+
+body {
+  background-color: var(--bg-neon);
+  color: var(--texto-glow);
+  font-family: "Courier New", Courier, monospace; /* Toque retro arcade */
+  margin: 0;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.contenedor_juego {
+  background: var(--bg-panel);
+  border: 2px solid var(--borde-neon);
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow:
+    0 0 20px rgba(255, 0, 85, 0.2),
+    inset 0 0 15px rgba(255, 0, 85, 0.1);
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+.boton_empezar_juego {
+  background: transparent;
+  color: var(--borde-cyan);
+  border: 2px solid var(--borde-cyan);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.boton_empezar_juego:hover {
+  background: var(--borde-cyan);
+  color: var(--bg-neon);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+}
+
+.boton_reiniciar {
+  background: transparent;
+  color: var(--borde-neon);
+  border: 2px solid var(--borde-neon);
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.2);
+}
+
+.boton_reiniciar:hover {
+  background: var(--borde-neon);
+  color: var(--texto-glow);
+  box-shadow: 0 0 20px rgba(255, 0, 85, 0.6);
+}
+
+.contenedor_juego_empezado {
+  margin-top: 1.5rem;
+  animation: parpadearEntrada 0.3s ease;
+}
+
+.texto_juego {
+  color: var(--texto-apagado);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+}
+
+.texto_contador {
+  font-size: 2rem;
+  color: var(--borde-cyan);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  margin: 1rem 0;
+}
+
+.contenedor_juego_terminado {
+  animation: sacudida 0.4s ease;
+}
+
+.texto_derrota {
+  font-size: 2.5rem;
+  color: var(--borde-neon);
+  text-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
+  font-weight: bold;
+  margin: 0 0 1rem 0;
+}
+
+.puntuacion_final {
+  font-size: 1.5rem;
+  color: var(--color-score);
+  margin-bottom: 2rem;
+}
+
+.contenedor_boton {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed var(--texto-apagado);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el botón circular en el eje horizontal */
+}
+
+.puntos_actuales {
+  color: var(--color-score);
+  font-size: 1.3rem;
+  margin-top: 0;
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.3);
+}
+
+.boton_juego_pulsar {
+  background: var(--color-score);
+  color: var(--bg-neon);
+  font-size: 1.2rem;
+
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 1rem auto 0 auto;
+  box-shadow:
+    0 0 20px rgba(0, 255, 102, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+  border: 3px solid #ffffff;
+}
+
+.boton_juego_pulsar:hover {
+  filter: brightness(1.2);
+  box-shadow:
+    0 0 35px rgba(0, 255, 102, 0.8),
+    inset 0 0 15px rgba(255, 255, 255, 0.5);
+  transform: scale(1.02);
+}
+
+.boton_juego_pulsar:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+}
+
+@keyframes parpadearEntrada {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes sacudida {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+}
+
+@media (max-width: 400px) {
+  body {
+    padding: 0.5rem;
+  }
+  .contenedor_juego {
+    padding: 1.2rem;
+  }
+  .texto_derrota {
+    font-size: 2rem;
+  }
+  .boton_juego_pulsar {
+    width: 140px;
+    height: 140px;
+    font-size: 1.1rem;
+  }
+}
